@@ -1,0 +1,3 @@
+[submodule "langfuse"]
+	path = langfuse
+	url = git@github.com:AlbanAndrieu/langfuse.git
