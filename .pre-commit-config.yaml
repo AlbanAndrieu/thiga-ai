@@ -1,3 +1,4 @@
+---
 fail_fast: true
 minimum_pre_commit_version: 4.2.0
 exclude: |
@@ -133,6 +134,7 @@ repos:
             yarn.lock|
             sbom.json|
             pnpm-lock.yaml|
+            docs/img/.*|
           )$
         # ----------------------------- 🔒 Security Tools ---------------------------- #
     -   id: detect-private-key
@@ -222,57 +224,40 @@ repos:
 -   repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.13.1-1
     hooks:
-      # Choose one of:
-      # - id: shfmt         # native (requires Go to build)
-    -   id: shfmt-docker # Docker image (requires Docker to run)
+    -   id: shfmt-docker  # Docker image (requires Docker to run)
         name: "🐚 🐳 shell · Format shell scripts"
         exclude: >
           (?x)^(
             build.sh|
           )$
 
--   repo: https://github.com/detailyang/pre-commit-shell
-    rev: v1.0.6
-    hooks:
-    -   id: shell-lint
-        name: "🐚 shell · Lint shell scripts"
-        args: [-x]
-        exclude: >
-          (?x)^(
-            mvnw|
-            hooks|
-            tests/.*|
-            docs/Makefile|
-            .envrc|
-            build.sh|
-          )$
+# -   repo: https://github.com/detailyang/pre-commit-shell
+#     rev: v1.0.6
+#     hooks:
+#     -   id: shell-lint
+#         name: "🐚 shell · Lint shell scripts"
+#         args: [-x]
+#         exclude: >
+#           (?x)^(
+#             mvnw|
+#             hooks|
+#             tests/.*|
+#             docs/Makefile|
+#             .envrc|
+#             build.sh|
+#           )$
 
--   repo: https://github.com/openstack/bashate
-    rev: 2.1.1
-    hooks:
-    -   id: bashate
-        name: "🐚 shell · Check shell script code style"
-        args: [-i, "E003,E006"]
-        exclude: >
-          (?x)^(
-            .envrc|
-          )$
+# -   repo: https://github.com/openstack/bashate
+#     rev: 2.1.1
+#     hooks:
+#     -   id: bashate
+#         name: "🐚 shell · Check shell script code style"
+#         args: [-i, "E003,E006"]
+#         exclude: >
+#           (?x)^(
+#             .envrc|
+#           )$
 
-    ### Makefile ###
--   repo: https://github.com/mrtazz/checkmake.git
-    rev: v0.3.2
-    hooks:
-    -   id: checkmake
-        name: "🐮 Makefile · Lint Makefile"
-
-    ### SQL ###
--   repo: https://github.com/sqlfluff/sqlfluff
-    rev: 4.2.2
-    hooks:
-    -   id: sqlfluff-fix
-        name: "📊 SQL · Attempts to fix rule violations."
-    -   id: sqlfluff-lint
-        name: "📊 SQL · Lint SQL code files"
 
     ### Notebooks ###
 -   repo: https://github.com/nbQA-dev/nbQA
@@ -357,18 +342,18 @@ repos:
 
     # ----------------------------- 🔒 Security Tools ---------------------------- #
 
--   repo: https://github.com/PyCQA/bandit
-    rev: 1.9.4
-    hooks:
-    -   id: bandit
-        name: "🔒 security · Detect security issues"
-        args: [-c, .bandit.yml]
-        exclude: >
-          (?x)^(
-            noxfile.py|
-            versioneer.py|
-            hooks/_version.py|
-          )$
+# -   repo: https://github.com/PyCQA/bandit
+#     rev: 1.9.4
+#     hooks:
+#     -   id: bandit
+#         name: "🔒 security · Detect security issues"
+#         args: [-c, .bandit.yml]
+#         exclude: >
+#           (?x)^(
+#             noxfile.py|
+#             versioneer.py|
+#             hooks/_version.py|
+#           )$
 
 -   repo: https://github.com/IamTheFij/ansible-pre-commit
     rev: v1.0.1

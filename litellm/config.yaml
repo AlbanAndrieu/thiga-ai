@@ -29,11 +29,27 @@ model_list:
         num_predict: 1024
     model_info:
       mode: chat
-      supports_function_calling: true
+      input_cost_per_token: 0
+      output_cost_per_token: 0
+      supports_function_calling: false
+
+  - model_name: embedding
+    litellm_params:
+      model: ollama/nomic-embed-text
+      api_base: http://ollama:11434
 
 general_settings:
   # disable_cache_on_db_queries: true
   store_model_in_db: false # change to true or fix : Invalid proxy server token passed ... not found in db
+  custom_headers:
+    forward_headers:
+      - X-OpenWebUI-User-Name
+      - X-OpenWebUI-User-Id
+      - X-OpenWebUI-User-Email
+      - X-OpenWebUI-User-Role
+      - X-OpenWebUI-Chat-Id
+      - X-OpenWebUI-Session
+      - X-Session-Id
   user_header_mappings:
     - header_name: X-OpenWebUI-User-Id
       litellm_user_role: internal_user
@@ -50,11 +66,26 @@ litellm_settings:
   #   port: 6379
   request_timeout: 600
   num_retries: 1
+  # snum_workers: 16
   # stream: true
   drop_params: true
   # set_verbose: true
-  callbacks: ["langfuse_otel"]
-  # callbacks: ["prometheus"]
+  callbacks:
+    # - hooks.openwebui_user_map.proxy_handler_instance
+    # - hooks.langfuse_chat_only.proxy_handler_instance
+    - langfuse_otel
+    - prometheus
+  success_callback: ["langfuse_otel"]
+  failure_callback: ["langfuse_otel"]
+  turn_off_message_logging: false
+  langfuse_default_tags:
+    - openwebui
+    - thiga-ai
+    - local-ollama
+    - qwen
+    - rag
+    - assistant-thiga-solution-architect
+    - prompt-v1
   prometheus_initialize_budget_metrics: true
 router_settings:
   routing_strategy: simple-shuffle

@@ -1,126 +1,101 @@
-# thiga-ai
+# Thiga AI Technical Assessment
 
-Stack IA Open source for thiga
+> Proof of Concept developed as part of the Senior Solution Architect technical assessment test.
 
-# Initial Setup
+---
 
-```bash
-git submodule add -f git@github.com:AlbanAndrieu/langfuse.git
+# Executive Summary
 
-git pull origin master --allow-unrelated-histories
-git pull && git submodule init && git submodule update && git submodule status
+This repository contains a Proof of Concept (PoC) demonstrating the design of a modern private AI platform capable of:
 
-# Important to have a tool to install all prerequisite such as docker compose and load env variables
-mise install
-# OR
-source .env
-```
+- interacting with multiple Large Language Models (LLMs);
+- tracing and evaluating LLM interactions;
+- remaining vendor-independent through an abstraction layer;
+- exposing the architecture in a way that can easily evolve towards a production deployment.
+- performing Retrieval-Augmented Generation (RAG) over custom documents;
 
-# Start stack
+The objective of this project was **not** to build a production-ready platform, but rather to demonstrate architectural thinking, technical decision making and integration capabilities within the limited time available for the assessment.
 
-Stop services that might conflict ports
+I cheat a bit and used ChatGPT to create scripts `openwebui-bootstrap-thiga.sh` and `langfuse-score-openwebui-sessions.py` because I wanted to finalize the test and have a real working exemple able to answer who is Alban Andrieu ?
 
-```
-sudo service redis stop # 6379
-docker stop redis
-sudo service postgresql stop # port 5432
-docker stop postgres
+---
 
-sudo service netdata stop
-```
+# Architecture Philosophy
 
-```bash
-sops -d secrets.env.sops > langfuse/.env.test
-# mv langfuse/.env.test .env
+Rather than connecting Open WebUI directly to Ollama, I intentionally introduced **LiteLLM** as an intermediary layer.
 
-# Check env are proerly loaded
-# docker compose config
+Although Open WebUI can communicate directly with Ollama, LiteLLM provides several architectural advantages while significantly simplifying the development process.
 
-docker compose --env-file .env up
-```
+## Why LiteLLM first?
 
-# Services availables :
+The decision was driven by several practical reasons:
 
-[langfuse web](http://localhost:3000/)
+- I was already familiar with LiteLLM and could therefore iterate much faster.
+- It allowed me to validate that Ollama and the selected models were working correctly before introducing Open WebUI.
+- It completely decouples the User Interface from the inference providers (and I did not know which one will work on my workstation).
+- It offers a stable OpenAI-compatible API regardless of the underlying model provider.
+- It makes model switching almost instantaneous (Ollama today, vLLM or others tomorrow).
+- It provided an ideal place to integrate tracing, logging and observability through Langfuse.
 
-Use sign up link
+This incremental approach considerably reduced debugging complexity during development.
 
-[clickhouse web](http://localhost:8123/)
+---
 
-# Security Considerations
+# Why not implement MCP?
 
-## Add Firewall :
+Model Context Protocol (MCP) was intentionally left outside of the initial PoC.
 
-* I am using Cloudflared
+The available time was primarily invested in:
 
-* We Should to restrict inbound traffic on the host to langfuse-web (port 3000) and minio (port 9090) only.
-* Then restrict all backend services behind a firewall for admin, only openwebui should be accessible for people allowed
-* Later we could create iDp such as Keycloak, but right now Cloudflare tunnel with email address is enough
+- document ingestion;
+- Retrieval-Augmented Generation;
+- observability;
+- architecture documentation.
 
-### Add Password maanger
+However, I already have an MCP server implementation that could naturally extend this platform.
 
-Use Vault for password storage, and SSL protection instead of sops.
-Using Vault will allow you to be independant of any Cloud provider and will ease transition to a real providuction Orchestrator such as kubernetes
+Repository:
 
-### Quick password encryption
+https://gitlab.com/AlbanAndrieu/fastapi-sample
 
-Cypher and un Cypher .env, [sops](https://blog.stephane-robert.info/docs/securiser/secrets/sops/) can later be integrated in Vault, Cloud KMS
+This project already contains most of the building blocks required to expose enterprise APIs and business services through MCP, and would have been my next integration step.
 
-#### Create a Thiga key
+---
 
-age-keygen -o thiga-ai.agekey
+# Design Priorities
 
-Give thiga-ai.agekey key to team member using preferally bitwarden send feature
+The priorities during this assessment were:
 
-#### Cypher
-cp .env secrets.env.sops
-sops -e -i secrets.env.sops
+1. Establish a clean architecture.
+2. Validate every integration independently.
+3. Keep components loosely coupled.
+4. Make every service observable.
+5. Build a platform that can easily evolve.
 
-#### Uncypher
-sops -d secrets.env.sops > .env.test
+---
 
-## Postgres database is not starting
+# Current Scope
 
-docker compose exec postgres psql -U postgres -d postgres -c '\du'
+The current PoC demonstrates:
 
-## Use GPU
+- Open WebUI as conversational interface;
+- LiteLLM as LLM gateway;
+- Ollama for local inference;
+- Langfuse tracing;
+- Knowledge base ingestion (simple RAG);
+- Docker-based deployment;
+- Architecture documentation.
 
-If you are on ubuntu, add nvidia toolkit to allow GPU in docker; See script scripts/run-nvidia-docker.sh and add gpus: all in docker-compose.yml
+---
 
-# Use model
+# Conclusion
 
-[qwen3.5](https://ollama.com/library/qwen3.5)
+I spend I think 10 hours on this POC, I know more than I should, but the tools exactly (except open Web UI) match the one I used to work on my company and it is part of my goal to create an home lab with them.
 
-```bash
-export DEFAULT_MODELS="qwen3.5:2b"
-```
+This was a perfect fit to deisgn my Futur Home Lab and I will integrate this on my stack.
 
-# Ask you question OpenWebUI
+See `docs/01-deployment.md` to start the POC.
 
-Who is Alban ?
+See `docs/02-architecture.md` for architecture diagrams.
 
-Answer without RAG Give :
-
-There are several notable individuals named Alban, so it's possible that you're referring to one of the following:
-
-Alban (Greek mythology): In Greek mythology, Alban was a hero who accompanied Jason on his quest for the Golden Fleece. He was said to be the son of King Iolcos and the brother of King Polydectes.
-Alban I (King of Albania): Alban I was an ancient king of Albania, believed to have ruled from around 850 BCE to 800 BCE. His reign is not well documented, but he is considered one of the earliest known kings of Albania.
-Alban Bairamaj: Alban Bairamaj is a Kosovo-born Albanian politician and diplomat who served as the Prime Minister of Kosovo from February 2014 to December 2017.
-Alban Arda (Gaelic poet): Alban Arda was an ancient Celtic poet who lived in what is now Scotland. He is mentioned in several medieval Scottish texts, including the Historia Brittonum and the Historia Regum Britanniae.
-Without more context, it's difficult to determine which Alban you're referring to. If you could provide more information or clarify which Alban you're interested in learning more about, I'd be happy to try and help further!
-
-They show that:
-
-✅ Open WebUI is successfully calling Ollama.
-✅ Ollama is using your RTX 2060.
-✅ The model is fully loaded on the GPU.
-✅ The inference request reached Ollama.
-
-For example:
-
-CUDA0 : NVIDIA GeForce RTX 2060
-load_tensors: offloaded 29/29 layers to GPU
-CUDA0 model buffer size = 1918 MiB
-CUDA0 KV buffer size = 448 MiB
-
-This means 100% of the model layers are running on the GPU, not on the CPU.
+See `docs/03-prompt.md` to see the outcome (in case of the demo effect).

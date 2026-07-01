@@ -2,12 +2,11 @@
 include:
   - path:
       - langfuse/docker-compose.yml
-      # - docker-compose-langfuse.override.yml
+      - docker-compose-langfuse.override.yml
 
   - path: litellm/docker-compose.yml
 
 services:
-
   ollama:
     image: ollama/ollama:latest
     container_name: ollama
@@ -34,7 +33,6 @@ services:
     volumes:
       - ollama:/root/.ollama
       - /workspace/models/ollama:/workspace/models/ollama
-      - /data:/data
 
   ollama-init:
     image: ollama/ollama:latest
@@ -45,20 +43,16 @@ services:
       sh -c '
       sleep 10 &&
       OLLAMA_HOST=http://ollama:11434 ollama pull qwen3:4b &&
-      curl -s http://ollama:11434/api/generate \
-      -H "Content-Type: application/json" \
-      -d "{\"model\":\"qwen3:4b\",\"prompt\":\"ping\",\"stream\":false,\"options\":{\"num_predict\":1}}" \
-      >/dev/null
+      OLLAMA_HOST=http://ollama:11434 ollama run qwen3:4b "ping" >/dev/null
       '
 
-#      OLLAMA_HOST=http://ollama:11434 ollama run qwen3:4b "ping" >/dev/null
-
   open-webui:
-    image: ghcr.io/open-webui/open-webui:main
+    image: ghcr.io/open-webui/open-webui:v0.10.2 # latest or main
     container_name: open-webui
     restart: unless-stopped
     volumes:
       - open-webui:/app/backend/data
+      - ./data:/app/backend/data/import:ro
     depends_on:
       - ollama
     ports:
@@ -68,12 +62,12 @@ services:
       - DEFAULT_LOCALE=en-US
       # - OLLAMA_BASE_URL=http://ollama:${OLLAMA_PORT:-11434}
       # - OLLAMA_BASE_URLS=http://ollama:${OLLAMA_PORT:-11434}
-      # Optional, only if you also want OpenAI-compatible pipeline
-      # - OPENAI_API_BASE_URL=http://pipelines:9099
       - OPENAI_API_BASE_URL=http://litellm:4000/v1
       - OPENAI_API_KEY=${LITELLM_MASTER_KEY}
       - ENABLE_OPENAI_API=true
       - ENABLE_OLLAMA_API=false # To use litellm
+      - ENABLE_API_KEY=true
+      - ENABLE_API_KEY_AUTH=true
       - DEFAULT_MODELS=qwen # qwen3.5:2b
       - DEFAULT_PINNED_MODELS=qwen # qwen3.5:2b
       - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
@@ -86,23 +80,18 @@ services:
       - ENABLE_COMMUNITY_SHARING=false
       - ENABLE_PERSISTENT_CONFIG=false
       - ENABLE_DIRECT_CONNECTIONS=false
+      - ENABLE_FORWARD_USER_INFO_HEADERS=true
+      # - RAG_EMBEDDING_ENGINE=sentence_transformers
+      # - RAG_EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+      - RAG_EMBEDDING_ENGINE=openai
+      - RAG_EMBEDDING_MODEL=embedding
+      - RAG_OPENAI_API_BASE_URL=http://litellm:4000/v1
+      - RAG_OPENAI_API_KEY=${LITELLM_MASTER_KEY}
+      - ENV=dev
+      - WEBUI_NAME=Thiga AI
     extra_hosts:
       - host.docker.internal:host-gateway
-
-  pipelines:
-    image: ghcr.io/open-webui/pipelines:main
-    container_name: pipelines
-    restart: unless-stopped
-    volumes:
-      - pipelines:/app/pipelines
-    extra_hosts:
-      - host.docker.internal:host-gateway
-    ports:
-      - 9099:9099
-    depends_on:
-      - langfuse-web
 
 volumes:
   ollama: {}
   open-webui: {}
-  pipelines: {}
