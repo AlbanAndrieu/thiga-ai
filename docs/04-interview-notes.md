@@ -1,6 +1,10 @@
 # Interview Notes
 
-Why LiteLLM? Why Ollama? Why Langfuse? Why RAG? Why Docker?
+Why LiteLLM? 
+Because I wanted to test severals models, observability is important and IA token cost a lot
+
+Why RAG? 
+Because I wanted meaningfull result
 
 
 # Presentation Talking Points (10 minutes)

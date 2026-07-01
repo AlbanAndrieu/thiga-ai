@@ -180,7 +180,7 @@ flowchart LR
 ```mermaid
 flowchart LR
     pdf["PDF files<br/>CV + job description"]
-    upload["Open WebUI upload"]
+    upload["Knoweldge files<br/>In this git repo"]
     parser["Document parser"]
     chunks["Chunking"]
     embedding["Embedding model<br/>OpenAI-compatible or local"]
@@ -197,13 +197,13 @@ flowchart LR
 
 ---
 
-## 8. Future AKS Target Architecture
+## 8. Future AKS/EKS Target Architecture
 
 ```mermaid
 flowchart TB
     users["Users"]
 
-    subgraph azure["Azure / AKS target"]
+    subgraph azure["Azure / AKS target / AWS / EKS target"]
         ingress["Ingress Controller"]
         keycloak["Keycloak / OIDC"]
         openwebui["Open WebUI"]

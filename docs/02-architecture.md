@@ -1,8 +1,6 @@
 # Architecture Overview
 
-> Thiga AI Technical Assessment
->
-> Senior Solution Architect — Alban Andrieu
+> POC Architecture 
 
 ---
 
@@ -195,9 +193,10 @@ This enables replacing Ollama with another inference backend without modifying O
 
 This architecture addresses several business objectives.
 
-## Reduce Vendor Lock-in
+## Reduce Vendor Lock-in and do not leak data
 
 The organisation remains independent from any AI provider.
+And later change model and inference service to scale.
 
 Changing from:
 
@@ -207,52 +206,36 @@ Changing from:
 - Azure OpenAI
 - vLLM
 
-requires only a LiteLLM configuration update.
-
----
-
-## Accelerate AI Adoption
-
-The stack provides:
-
-- conversational interface
-- document search
-- prompt management
-- observability
-
-without requiring application modifications.
-
----
-
-## Improve Maintainability
+Improve Maintainability
 
 Each service has a single responsibility.
 
 Services can evolve independently.
 
+
 ---
 
-# Sovereignty
+## Sovereignty
 
 The proposed architecture satisfies the sovereignty constraint.
 
-## Models
+### Models
 
 Inference is executed locally through Ollama.
 
 No prompts are sent to external providers.
 
-## Documents
+### Documents
 
 Enterprise documents remain inside the infrastructure.
 
 Vector embeddings are stored locally.
 
-## Traces
+### Traces
 
 Observability data remains inside Langfuse.
 
-## Authentication
+### Authentication
 
 JWT authentication remains local.
 
@@ -309,17 +292,17 @@ Future
 OpenWebUI --> LiteLLM
 
 LiteLLM --> Ollama
-LiteLLM --> OpenAI
-LiteLLM --> Claude
-LiteLLM --> vLLM
+LiteLLM --> vLLM-GPU
 
 OpenWebUI --> MCP
 
-MCP --> Jira
-
-MCP --> GitLab
+MCP --> GMail
 
 MCP --> Calendar
 
-MCP --> Internal APIs
+MCP --> LinkedIn
+
+MCP --> OCR
+
+MCP --> Internal-APIs
 ```

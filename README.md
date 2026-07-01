@@ -10,9 +10,8 @@ This repository contains a Proof of Concept (PoC) demonstrating the design of a 
 
 - interacting with multiple Large Language Models (LLMs);
 - tracing and evaluating LLM interactions;
-- remaining vendor-independent through an abstraction layer;
 - exposing the architecture in a way that can easily evolve towards a production deployment.
-- performing Retrieval-Augmented Generation (RAG) over custom documents;
+- performing Retrieval-Augmented Generation (RAG) over custom (My CV and Thigo opening position) documents;
 
 The objective of this project was **not** to build a production-ready platform, but rather to demonstrate architectural thinking, technical decision making and integration capabilities within the limited time available for the assessment.
 
@@ -31,8 +30,8 @@ Although Open WebUI can communicate directly with Ollama, LiteLLM provides sever
 The decision was driven by several practical reasons:
 
 - I was already familiar with LiteLLM and could therefore iterate much faster.
-- It allowed me to validate that Ollama and the selected models were working correctly before introducing Open WebUI.
 - It completely decouples the User Interface from the inference providers (and I did not know which one will work on my workstation).
+- It allowed me to validate that Ollama and the selected models (working with my RTX 2060 GPU) were working correctly before introducing Open WebUI.
 - It offers a stable OpenAI-compatible API regardless of the underlying model provider.
 - It makes model switching almost instantaneous (Ollama today, vLLM or others tomorrow).
 - It provided an ideal place to integrate tracing, logging and observability through Langfuse.
@@ -44,6 +43,7 @@ This incremental approach considerably reduced debugging complexity during devel
 # Why not implement MCP?
 
 Model Context Protocol (MCP) was intentionally left outside of the initial PoC.
+Too much time consuming... And I found out that Open Web UI could have a simple RAG, called Knowledge + Assistant
 
 The available time was primarily invested in:
 
@@ -69,7 +69,7 @@ The priorities during this assessment were:
 1. Establish a clean architecture.
 2. Validate every integration independently.
 3. Keep components loosely coupled.
-4. Make every service observable.
+4. Make every service observable and debugable.
 5. Build a platform that can easily evolve.
 
 ---
@@ -83,7 +83,6 @@ The current PoC demonstrates:
 - Ollama for local inference;
 - Langfuse tracing;
 - Knowledge base ingestion (simple RAG);
-- Docker-based deployment;
 - Architecture documentation.
 
 ---
@@ -94,8 +93,8 @@ I spend I think 10 hours on this POC, I know more than I should, but the tools e
 
 This was a perfect fit to deisgn my Futur Home Lab and I will integrate this on my stack.
 
-See `docs/01-deployment.md` to start the POC.
+🚀 Start with the 📦 [docs/01-deployment.md](docs/01-deployment.md) to start the PoC.
 
-See `docs/02-architecture.md` for architecture diagrams.
+ 🏗️ [Architecture Overview](docs/02-architecture.md) for architecture diagrams.
 
-See `docs/03-prompt.md` to see the outcome (in case of the demo effect).
+ 📊 [docs/03-prompt.md](docs/03-prompt.md) to see the outcome (in case of the demo effect).
