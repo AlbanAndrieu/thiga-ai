@@ -97,4 +97,4 @@ This was a perfect fit to deisgn my Futur Home Lab and I will integrate this on 
 
  🏗️ [Architecture Overview](docs/02-architecture.md) for architecture diagrams.
 
- 📊 [docs/03-prompt.md](docs/03-prompt.md) to see the outcome (in case of the demo effect).
+ 📊 [RAG is working](docs/03-prompt.md) to see the prompt outcome (in case of the demo effect).
