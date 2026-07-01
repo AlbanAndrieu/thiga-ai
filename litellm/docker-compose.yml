@@ -1,6 +1,7 @@
 services:
   litellm:
-    image: ghcr.io/berriai/litellm:main-latest
+    # image: ghcr.io/berriai/litellm:main-latest
+    image: ghcr.io/berriai/litellm:main-stable
     container_name: litellm
     restart: unless-stopped
     depends_on:
@@ -9,10 +10,23 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}
-      - LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY}
-      - LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY}
-      - LANGFUSE_OTEL_HOST=http://langfuse-web:3000
+       LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
+       LANGFUSE_PUBLIC_KEY: ${LANGFUSE_INIT_PROJECT_PUBLIC_KEY}
+       LANGFUSE_SECRET_KEY: ${LANGFUSE_INIT_PROJECT_SECRET_KEY}
+       LANGFUSE_OTEL_HOST: http://langfuse-web:3000
+       DATABASE_URL: ${LITELLM_DATABASE_URL}
+       LITELLM_SALT_KEY: ${LITELLM_SALT_KEY}
+       UI_USERNAME: ${UI_USERNAME}
+       UI_PASSWORD: ${UI_PASSWORD}
+       # STORE_MODEL_IN_DB: "True"
+       HEALTH_CHECK_TIMEOUT: 120 # For cold start of qwen
+       LITELLM_HEALTH_CHECK_TIMEOUT: 120
+       # REDIS_HOST: ""
     volumes:
       - ./config.yaml:/app/config.yaml:ro
-    command: ["--config", "/app/config.yaml", "--port", "4000"]
+    command:
+      - "--config"
+      - "/app/config.yaml"
+      - "--port"
+      - "4000"
+      # - "--use_v2_migration_resolver"

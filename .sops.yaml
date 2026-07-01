@@ -7,7 +7,7 @@ creation_rules:
       # First key group
       - age:
           - age1t8wn2gqcpzxwvwhjwxwtdwp0tvr6k2z9j39v4q2fr55qhmqz7f2qvn25cp
-          - age1t0x4d4zc0mvv8d8hasct392fw9xw5vs5z2g6xjlgx5zpds4gx55sxpgw22          
+          - age1t0x4d4zc0mvv8d8hasct392fw9xw5vs5z2g6xjlgx5zpds4gx55sxpgw22
   - path_regex: .*\.ya?ml$
     age: age1t8wn2gqcpzxwvwhjwxwtdwp0tvr6k2z9j39v4q2fr55qhmqz7f2qvn25cp
 

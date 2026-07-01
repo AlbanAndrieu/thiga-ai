@@ -5,17 +5,56 @@ model_list:
       api_base: http://ollama:11434
       num_ctx: 4096
 
-  - model_name: qwen3.5
-    litellm_params:
-      model: ollama_chat/qwen3.5:2b
-      api_base: http://ollama:11434
-      num_ctx: 4096
-      temperature: 1.0
-      top_p: 0.95
-      extra_body:
-        top_k: 20
-        presence_penalty: 1.5
+  # - model_name: qwen
+  #   litellm_params:
+  #     model: ollama_chat/qwen3.5:2b
+  #     api_base: http://ollama:11434
+  #     num_ctx: 4096
+  #     temperature: 1.0
+  #     top_p: 0.95
+  #     extra_body:
+  #       top_k: 20
+  #       presence_penalty: 1.5
 
+  # texte only
+  - model_name: qwen
+    litellm_params:
+      model: ollama_chat/qwen3:4b
+      api_base: http://ollama:11434
+      extra_body:
+        num_ctx: 4096
+        temperature: 0.6
+        top_p: 0.9
+        repeat_penalty: 1.1
+        num_predict: 1024
+    model_info:
+      mode: chat
+      supports_function_calling: true
+
+general_settings:
+  # disable_cache_on_db_queries: true
+  store_model_in_db: false # change to true or fix : Invalid proxy server token passed ... not found in db
+  user_header_mappings:
+    - header_name: X-OpenWebUI-User-Id
+      litellm_user_role: internal_user
+    - header_name: X-OpenWebUI-User-Email
+      litellm_user_role: customer
 litellm_settings:
-  callbacks: ["langfuse_otel"]
+  fallbacks:
+    - qwen: ["llama3.2"]
+  default_fallbacks: ["llama3.2"]
+  # cache: true # TODO configure REDIS
+  # cache_params:
+  #   type: redis
+  #   host: redis
+  #   port: 6379
+  request_timeout: 600
+  num_retries: 1
+  # stream: true
   drop_params: true
+  # set_verbose: true
+  callbacks: ["langfuse_otel"]
+  # callbacks: ["prometheus"]
+  prometheus_initialize_budget_metrics: true
+router_settings:
+  routing_strategy: simple-shuffle
