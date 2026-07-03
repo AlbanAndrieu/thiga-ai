@@ -3,14 +3,27 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "slidev build",
-    "dev": "slidev --open",
-    "export": "slidev export"
+    "prepare": "npm run sync",
+    "sync": "npm run sync:img && npm run sync:diagrams",
+    "sync:img": "mkdir -p public/img && rsync -av --delete ../docs/img/ public/img/",
+    "sync:diagrams": "mkdir -p public/diagrams && rsync -av --delete ../docs/diagrams/ public/diagrams/",
+    "dev": "npm run sync && slidev slides.md --open",
+    "dev:debug": "npm run sync && DEBUG=vite:* slidev slides.md --open --logLevel info",
+    "build": "npm run sync && slidev build slides.md",
+    "export": "npm run sync && slidev export slides.md --format pdf",
+    "watch": "concurrently \"npm:watch:img\" \"npm:watch:diagrams\"",
+    "watch:img": "chokidar '../docs/img/**/*' -c 'npm run sync:img'",
+    "watch:diagrams": "chokidar '../docs/diagrams/**/*' -c 'npm run sync:diagrams'"
   },
   "dependencies": {
-    "@slidev/cli": "^52.16.0",
+    "@slidev/cli": "latest",
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
-    "vue": "^3.5.33"
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.0.0",
+    "vue": "latest"
+  },
+  "devDependencies": {
+    "playwright-chromium": "latest"
   }
 }

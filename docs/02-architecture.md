@@ -37,7 +37,7 @@ The solution follows five architectural principles.
 ```mermaid
 flowchart LR
 
-User((Consultant))
+User((HR))
 
 User --> OpenWebUI
 
@@ -59,7 +59,11 @@ Documents --> JobDescription
 Langfuse --> ClickHouse
 Langfuse --> PostgreSQL
 Langfuse --> MinIO
+Langfuse --> Redis
 ```
+
+Note : LiteLLM has been plugged to PostgreSQL, but only to have UI and test the model and ollama integration.
+
 
 ---
 
@@ -67,15 +71,17 @@ Langfuse --> MinIO
 
 | Component | Responsibility |
 |------------|---------------|
-| Open WebUI | User interface, assistant management, RAG orchestration |
-| LiteLLM | LLM gateway, routing, authentication, tracing |
-| Ollama | Local model inference |
-| Langfuse | Observability, traces, prompts, sessions |
-| ChromaDB | Vector database |
-| PostgreSQL | Metadata |
-| ClickHouse | Analytics |
-| MinIO | Object storage |
+| 🌐 Open WebUI | User interface, assistant management, RAG orchestration |
+| 🔀 LiteLLM | LLM gateway, routing, authentication, tracing |
+| 🤖 Ollama | Local model inference |
+| 📈 Langfuse | Observability, traces, prompts, sessions |
+| 📚 ChromaDB | Vector database |
+| 🗄 PostgreSQL | Metadata |
+| 📊 ClickHouse | Analytics |
+| ⚡ Redis | Cache storage |
+| 🪣 MinIO | Object storage |
 | Docker Compose | Deployment |
+
 
 ---
 
@@ -314,14 +320,15 @@ MCP --> Internal-APIs
 Draw IO graph, created by hand
 
 <p align="center">
-<img src="./img/thiga-ai-architecture.drawio.svg">
+<img src="./diagrams/thiga-ai-architecture.drawio.svg">
 </p>
 
-
+With a drawio link [here](https://drawio.albandrieu.com/)
+ 
 Generate graph, looks far nicer !
 
 <p align="center">
-<img src="./img/compose-architecture.png">
+<img src="./diagrams/compose-architecture.png">
 </p>
 
 
