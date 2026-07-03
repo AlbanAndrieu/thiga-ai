@@ -297,8 +297,6 @@ LiteLLM --> Ollama
 
 Future
 
-OpenWebUI --> LiteLLM
-
 LiteLLM --> Ollama
 LiteLLM --> vLLM-GPU
 

@@ -8,12 +8,6 @@ Parce que LiteLLM découple l'interface des modèles, facilite le routage, les f
 
 ---
 
-## Pourquoi pas Kubernetes directement ?
-
-Le cahier des charges demandait Docker Compose et une restitution rapide. L'architecture est cependant conçue pour migrer vers AKS.
-
----
-
 ## Pourquoi Langfuse ?
 
 Pour apporter une observabilité IA : traces, sessions, prompts, tokens, latence, coûts et scores.

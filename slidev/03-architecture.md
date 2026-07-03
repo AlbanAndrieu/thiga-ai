@@ -4,22 +4,7 @@
 
 <div class="scale-75 origin-top-left">
 
-```mermaid
-flowchart TB
-  U[Utilisateurs] --> CF[Cloudflare Tunnel]
-  CF --> OW[Open WebUI]
-
-  subgraph S[Périmètre souverain]
-    OW --> LL[LiteLLM]
-    OW --> KB[Knowledge Base / RAG]
-    LL --> OL[Ollama]
-    LL --> LF[Langfuse]
-    LL -. TCP .-> PG[(PostgreSQL)]
-    LF --> CH[(ClickHouse)]
-    LF --> MI[(MinIO)]
-    LF --> RD[(Redis)]
-  end
-```
+<img src="./diagrams/architecture-overview.svg" class="w-full max-h-[430px] object-contain">
 
 </div>
 

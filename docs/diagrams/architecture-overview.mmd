@@ -1,0 +1,15 @@
+flowchart TB
+  U[Utilisateurs] --> CF[Cloudflare Tunnel]
+  CF --> OW[Open WebUI]
+
+  subgraph S[Périmètre souverain]
+    OW --> LL[LiteLLM]
+    OW --> KB[Knowledge Base / RAG]
+    LL --> OL[Ollama]
+    LL --> LF[Langfuse]
+    LL -. TCP .-> PG[(PostgreSQL)]
+    LF --> CH[(ClickHouse)]
+    LF --> MI[(MinIO)]
+    LF --> RD[(Redis)]
+  end
+
