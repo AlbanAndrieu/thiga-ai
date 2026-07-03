@@ -1,8 +1,131 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mxfile host="app.diagrams.net" modified="2026-07-01T00:00:00.000Z" agent="ChatGPT" version="24.7.17" type="device">
+<mxfile host="drawio.albandrieu.com" agent="ChatGPT">
   <diagram id="thiga-ai-architecture" name="Thiga AI Architecture">
-    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
-      <root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="boundary" value="Private / controlled perimeter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;" vertex="1" parent="1"><mxGeometry x="220" y="40" width="1020" height="410" as="geometry"/></mxCell><mxCell id="user" value="Internal User / Consultant" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="40" y="170" width="160" height="60" as="geometry"/></mxCell><mxCell id="owui" value="Open WebUI&lt;br&gt;User interface&lt;br&gt;Assistants + RAG" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="260" y="140" width="180" height="100" as="geometry"/></mxCell><mxCell id="kb" value="Knowledge Base&lt;br&gt;Vector search&lt;br&gt;CV + job description" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="260" y="310" width="180" height="100" as="geometry"/></mxCell><mxCell id="litellm" value="LiteLLM&lt;br&gt;LLM Gateway&lt;br&gt;Routing + tracing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="520" y="140" width="180" height="100" as="geometry"/></mxCell><mxCell id="ollama" value="Ollama&lt;br&gt;Local inference&lt;br&gt;Qwen / Llama" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="780" y="80" width="180" height="90" as="geometry"/></mxCell><mxCell id="lf" value="Langfuse&lt;br&gt;Traces, sessions,&lt;br&gt;scores" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="780" y="240" width="180" height="90" as="geometry"/></mxCell><mxCell id="storage" value="PostgreSQL&lt;br&gt;ClickHouse&lt;br&gt;Redis&lt;br&gt;MinIO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="1030" y="230" width="180" height="120" as="geometry"/></mxCell><mxCell id="e1" value="HTTP/S" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="user" target="owui"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="e2" value="OpenAI API" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="owui" target="litellm"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="e3" value="Ollama API" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="litellm" target="ollama"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="e4" value="OTEL / callback" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="litellm" target="lf"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="e5" value="retrieval" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="owui" target="kb"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="e6" value="metadata + analytics" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="lf" target="storage"><mxGeometry relative="1" as="geometry"/></mxCell></root>
+    <mxGraphModel dx="1167" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-3" parent="1" style="shape=ext;double=1;rounded=1;whiteSpace=wrap;html=1;" value="Open Web UI" vertex="1">
+          <mxGeometry height="330" width="269.72" x="360.28" y="130" as="geometry" />
+        </mxCell>
+        <object label="&lt;b style=&quot;line-height: 170%;&quot;&gt;Private / controlled perimeter&lt;/b&gt;" id="boundary">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;align=center;" vertex="1">
+            <mxGeometry height="600" width="1020" x="310.28" y="70" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="owui" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Open WebUI&lt;br&gt;User interface&lt;br&gt;Assistants + RAG" vertex="1">
+          <mxGeometry height="100" width="180" x="410.28" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="kb" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Knowledge Base&lt;br&gt;Vector search&lt;br&gt;CV + job description" vertex="1">
+          <mxGeometry height="100" width="180" x="410.28" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="litellm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="LiteLLM&lt;br&gt;LLM Gateway&lt;br&gt;Routing + tracing" vertex="1">
+          <mxGeometry height="100" width="180" x="670.28" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ollama" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Ollama&lt;br&gt;Local inference&lt;br&gt;Qwen / Llama" vertex="1">
+          <mxGeometry height="90" width="180" x="930.28" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="lf" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Langfuse worker&lt;br&gt;Traces, sessions,&lt;br&gt;scores" vertex="1">
+          <mxGeometry height="90" width="180" x="830" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="lhQLrdoku_FA5oAhKqCk-4" style="endArrow=block;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="owui" value="HTTP/S&lt;br&gt;31028">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="219.5" as="sourcePoint" />
+            <mxPoint x="400.28" y="219.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" style="endArrow=block;html=1;rounded=0;" value="OpenAI API&lt;br&gt;4000">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590.28" y="222" as="sourcePoint" />
+            <mxPoint x="670.28" y="222" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="litellm" style="endArrow=block;html=1;rounded=0;" target="ollama" value="Ollama API&lt;br&gt;11434">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="litellm" style="endArrow=block;html=1;rounded=0;" target="lf" value="OTEL / callback">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="owui" style="endArrow=block;html=1;rounded=0;" target="kb" value="retrieval">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="lf" style="endArrow=block;html=1;rounded=0;" target="lhQLrdoku_FA5oAhKqCk-2" value="send&lt;br&gt;metadata + analytics">
+          <mxGeometry relative="1" x="-0.0052" y="18" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-2" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="PostgreSQL&lt;br&gt;ClickHouse&lt;br&gt;Redis&lt;br&gt;MinIO" vertex="1">
+          <mxGeometry height="140" width="150" x="1130" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-4" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e3c800;strokeColor=#B09500;fontColor=#000000;" value="VPN / Tunnel" vertex="1">
+          <mxGeometry height="50" width="132" x="178.28" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-5" edge="1" parent="1" source="lhQLrdoku_FA5oAhKqCk-7" style="endArrow=block;html=1;rounded=0;" target="lhQLrdoku_FA5oAhKqCk-4" value="HTTPS">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="180" y="89.5" as="sourcePoint" />
+            <mxPoint x="330.28" y="89.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <object label="&lt;b&gt;Ucontrolled perimeter&lt;/b&gt;" id="lhQLrdoku_FA5oAhKqCk-6">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;align=center;" vertex="1">
+            <mxGeometry height="410" width="220" x="10" y="70" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-7" parent="1" style="shape=actor;whiteSpace=wrap;html=1;" value="Outside User" vertex="1">
+          <mxGeometry height="90" width="90" x="90" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Langfuse UI" vertex="1">
+          <mxGeometry height="90" width="180" x="830" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-13" parent="1" style="shape=actor;whiteSpace=wrap;html=1;" value="Internal User / Admin" vertex="1">
+          <mxGeometry height="90" width="90" x="500" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-14" edge="1" parent="1" source="lhQLrdoku_FA5oAhKqCk-13" style="endArrow=block;html=1;rounded=0;" target="lhQLrdoku_FA5oAhKqCk-11" value="HTTP&amp;nbsp;3000">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="173" y="320" as="sourcePoint" />
+            <mxPoint x="234" y="249" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-15" connectable="0" parent="lhQLrdoku_FA5oAhKqCk-14" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Text" vertex="1">
+          <mxGeometry relative="1" x="-0.1998" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-16" edge="1" parent="1" source="lhQLrdoku_FA5oAhKqCk-13" style="endArrow=block;html=1;rounded=0;" target="owui" value="HTTP&amp;nbsp;31028">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="480" y="520.07" as="sourcePoint" />
+            <mxPoint x="710" y="470.07" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-17" connectable="0" parent="lhQLrdoku_FA5oAhKqCk-16" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Text" vertex="1">
+          <mxGeometry relative="1" x="-0.1998" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-18" edge="1" parent="1" source="lhQLrdoku_FA5oAhKqCk-13" style="endArrow=block;html=1;rounded=0;" target="litellm" value="HTTP&amp;nbsp;4000">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="710.29" y="520" as="sourcePoint" />
+            <mxPoint x="670.29" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-19" connectable="0" parent="lhQLrdoku_FA5oAhKqCk-18" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Text" vertex="1">
+          <mxGeometry relative="1" x="-0.1998" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-23" edge="1" parent="1" style="endArrow=block;html=1;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=97.5;entryPerimeter=0;" target="lhQLrdoku_FA5oAhKqCk-2" value="retrieve &lt;br&gt;metadata + analytics">
+          <mxGeometry relative="1" x="-0.0052" y="18" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1010" y="478.32" as="sourcePoint" />
+            <mxPoint x="1130" y="480.32" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lhQLrdoku_FA5oAhKqCk-25" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Exposed port :&amp;nbsp;31028&amp;nbsp;" vertex="1">
+          <mxGeometry height="30" width="60" x="70" y="530" as="geometry" />
+        </mxCell>
+      </root>
     </mxGraphModel>
   </diagram>
 </mxfile>

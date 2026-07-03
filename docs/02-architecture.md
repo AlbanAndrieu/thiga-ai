@@ -1,6 +1,6 @@
 # Architecture Overview
 
-> POC Architecture 
+> POC Architecture
 
 ---
 
@@ -146,6 +146,8 @@ OpenWebUI-->>User: Response
 Only Open WebUI is intended to be exposed to end users.
 
 All other services remain on the internal Docker network.
+
+We can later improve docker network, be splitting network in 2, with one dedicated network for only internal tool, like liteLLM, Ollama, Langfuse, keeping only Open Web UI exposed
 
 ---
 
@@ -306,3 +308,21 @@ MCP --> OCR
 
 MCP --> Internal-APIs
 ```
+
+# Graph
+
+Draw IO graph, created by hand
+
+<p align="center">
+<img src="./img/thiga-ai-architecture.drawio.svg">
+</p>
+
+
+Generate graph, looks far nicer !
+
+<p align="center">
+<img src="./img/compose-architecture.png">
+</p>
+
+
+ChromaDB is missing in the graphs

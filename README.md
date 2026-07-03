@@ -95,7 +95,7 @@ This was a perfect fit to deisgn my Futur Home Lab and I will integrate this on 
 
 🚀 Start with the 📦 [docs/01-deployment.md](docs/01-deployment.md) to start the PoC.
 
- 🏗️ [Architecture Overview](docs/02-architecture.md) for architecture diagrams.
+ 🏗️ [Architecture Overview](docs/02-architecture.md) for architecture diagrams. And drawio link [here](https://drawio.albandrieu.com/)
 
  📊 [RAG is working](docs/03-prompt.md) to see the prompt outcome (in case of the demo effect).
 
