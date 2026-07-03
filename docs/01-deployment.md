@@ -59,6 +59,13 @@ The following services are exposed by the local Docker stack.
 | **Langfuse** | http://localhost:3000/ | LLM Observability, Tracing and Evaluation *(Create an account using **Sign Up** on first startup.)* |
 | **LiteLLM** | http://localhost:4000/ | OpenAI-compatible LLM Gateway |
 
+The services exposed on TrueNas
+
+| Service | URL | Notes |
+|---------|-----|------|
+| **Open WebUI** | https://open-webui.albandrieu.com/ | Main AI chat interface |
+| **Langfuse** | https://langfuse.albandrieu.com/ | LLM Observability, Tracing and Evaluation |
+| **LiteLLM** | https://litellm.albandrieu.com/ | OpenAI-compatible LLM Gateway |
 
 | Service | URL | Notes |
 |---------|-----|------|
