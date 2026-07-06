@@ -120,40 +120,14 @@ OpenWebUI-->>User: Response
 
 # Internal Network
 
-```text
-                 Docker Network
-
-+------------------------------------------------------+
-
- Open WebUI          :31028
-
- LiteLLM             :4000
-
- Ollama              :11434
-
- Langfuse Web        :3000
-
- Langfuse Worker
-
- PostgreSQL          :5432
-
- ClickHouse          :8123 / 9000
-
- Redis               :6379
-
- MinIO               :9001 (UI)
-                      9002 (API)
-
- ChromaDB (embedded)
-
-+------------------------------------------------------+
-```
 
 Only Open WebUI is intended to be exposed to end users.
 
 All other services remain on the internal Docker network.
 
 We can later improve docker network, be splitting network in 2, with one dedicated network for only internal tool, like liteLLM, Ollama, Langfuse, keeping only Open Web UI exposed
+
+See exposed [Ports](docs/01-deployment.md#ports-and-links)  
 
 ---
 
@@ -322,7 +296,7 @@ Draw IO graph, created by hand
 </p>
 
 With a drawio link [here](https://drawio.albandrieu.com/)
- 
+
 Generate graph, looks far nicer !
 
 <p align="center">

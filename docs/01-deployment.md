@@ -51,6 +51,8 @@ we should block such behavior, more globally with firwall or a squid proxy
 ./init.sh
 ```
 
+## Ports and Links
+
 The following services are exposed by the local Docker stack.
 
 | Service | URL | Notes |
@@ -58,14 +60,6 @@ The following services are exposed by the local Docker stack.
 | **Open WebUI** | http://localhost:31028/ | Main AI chat interface |
 | **Langfuse** | http://localhost:3000/ | LLM Observability, Tracing and Evaluation *(Create an account using **Sign Up** on first startup.)* |
 | **LiteLLM** | http://localhost:4000/ | OpenAI-compatible LLM Gateway |
-
-The services exposed on TrueNas
-
-| Service | URL | Notes |
-|---------|-----|------|
-| **Open WebUI** | https://open-webui.albandrieu.com/ | Main AI chat interface |
-| **Langfuse** | https://langfuse.albandrieu.com/ | LLM Observability, Tracing and Evaluation |
-| **LiteLLM** | https://litellm.albandrieu.com/ | OpenAI-compatible LLM Gateway |
 
 | Service | URL | Notes |
 |---------|-----|------|
@@ -81,7 +75,15 @@ The services exposed on TrueNas
 | **Ollama Tags** | http://localhost:11434/api/tags | Installed models |
 | **Open WebUI API Docs** | http://localhost:31028/docs | FastAPI Swagger UI |
 | **Open WebUI OpenAPI** | http://localhost:31028/openapi.json | OpenAPI specification |
+| **ChromaDB** (embedded) |  | Vector DB |
 
+The services exposed on TrueNas
+
+| Service | URL | Notes |
+|---------|-----|------|
+| **Open WebUI** | https://open-webui.albandrieu.com/ | Main AI chat interface |
+| **Langfuse** (coming) | https://langfuse.albandrieu.com/ | LLM Observability, Tracing and Evaluation |
+| **LiteLLM** | https://litellm.albandrieu.com/ | OpenAI-compatible LLM Gateway |
 
 ## Use GPU
 
@@ -96,9 +98,10 @@ export DEFAULT_MODELS="qwen3:4b" # or change to qwen3.5:2b
 qwen3:4b is a bit bigger and faster an my RTX
 
 [qwen3](https://ollama.com/library/qwen3)
+
 [qwen3.5](https://ollama.com/library/qwen3.5)
 
-THe simplest, maybe to simple to have relevant outcome!
+The simplest, maybe to simple to have relevant outcome!
 
 [llama3.2](https://ollama.com/library/llama3.2)
 
@@ -123,3 +126,11 @@ Select Settings > Account
 In the API Keys section, click Generate New API Key
 Give it a descriptive name (e.g., "Monitoring Bot")
 Copy the key immediately - you won't be able to view it again
+
+## Cypher .env
+
+```bash
+# Cypher
+cp .env secrets.env.sops
+sops -e -i secrets.env.sops
+```
