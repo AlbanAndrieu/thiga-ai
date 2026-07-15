@@ -28,6 +28,10 @@ docker stop ollama 2>/dev/null || true
 sudo service litellm stop 2>/dev/null || true
 docker stop litellm 2>/dev/null || true
 
+# Free port 9090
+sudo service prometheus stop 2>/dev/null || true
+docker stop prometheus 2>/dev/null || true
+
 sudo service netdata stop 2>/dev/null || true
 
 docker compose --env-file .env down

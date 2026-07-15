@@ -24,4 +24,6 @@ description = "Project infos"
 run = '''
 echo "Project : $PROJECT_NAME"
 echo "Virtuel environnment : $VIRTUAL_ENV"
+echo "Langfuse PK : $LANGFUSE_PUBLIC_KEY"
+echo "Open Web UI : $OPEN_WEBUI_URL
 '''

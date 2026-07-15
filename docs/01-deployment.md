@@ -22,8 +22,13 @@ Uncypher env variable
 ```bash
 sops -d secrets.env.sops > .env
 
-If no mise
+# If no mise
 source .env
+
+# If mise
+mise trust
+mise doctor
+mise env
 ```
 
 # Initial Setup
@@ -95,7 +100,7 @@ If you are on Ubuntu, add nvidia toolkit to allow GPU in docker; See script `scr
 export DEFAULT_MODELS="qwen3:4b" # or change to qwen3.5:2b
 ```
 
-qwen3:4b is a bit bigger and faster an my RTX
+qwen3:4b is a bit bigger and faster on my RTX
 
 [qwen3](https://ollama.com/library/qwen3)
 
